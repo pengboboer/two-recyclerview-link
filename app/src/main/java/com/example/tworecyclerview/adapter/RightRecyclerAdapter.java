@@ -24,13 +24,8 @@ public class RightRecyclerAdapter extends RecyclerView.Adapter<RightRecyclerAdap
     private Context context;
     private List<String> bigSortList;
     private List<String> smallSortList;
-    private int selectedPosition;
     private RecyclerView recyclerView;
     private RightListener listener;
-    /**
-     * 左侧点击时是否进行第二次滚动
-     */
-    private boolean secondMove;
 
     public RightRecyclerAdapter(Context context, List<String> bigSortList,List<String> smallSortList, RecyclerView recyclerView) {
         this.context = context;
@@ -43,7 +38,6 @@ public class RightRecyclerAdapter extends RecyclerView.Adapter<RightRecyclerAdap
      * @param selectedPosition
      */
     public void getSelectedPosition(int selectedPosition) {
-        this.selectedPosition = selectedPosition;
         //调用移动位置的方法,直接移动到顶部第一个位置
         ((LinearLayoutManager)recyclerView.getLayoutManager()).scrollToPositionWithOffset(selectedPosition,0);
         //刷新
