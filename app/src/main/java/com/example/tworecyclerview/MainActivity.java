@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(SortBean item, int index) {
                 leftAdapter.setSelectedPosition(index);
                 MyUtils.moveToMiddle(leftRecyclerView, index);
-                leftAdapter.notifyItemChanged(index);
+                leftAdapter.notifyDataSetChanged();
                 ((LinearLayoutManager)rightRecyclerView.getLayoutManager()).scrollToPositionWithOffset(index,0);
             }
         });
@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
                 int topPosition = ((LinearLayoutManager) rightRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
                 //左侧得到这个position
                 leftAdapter.setSelectedPosition(topPosition);
+                MyUtils.moveToMiddle(leftRecyclerView, topPosition);
+                leftAdapter.notifyDataSetChanged();
             }
         });
     }
