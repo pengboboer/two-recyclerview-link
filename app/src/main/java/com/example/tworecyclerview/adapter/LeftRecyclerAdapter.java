@@ -29,6 +29,28 @@ public class LeftRecyclerAdapter extends RecyclerView.Adapter<LeftRecyclerAdapte
         this.bigSortList = bigSortList;
         this.recyclerView = recyclerView;
     }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recyclerview_item_search_sort_left, parent, false), listener);
+    }
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        // 绑定数据
+        holder.tvName.setText(bigSortList.get(position));
+        //item点击后背景的变化
+        if (position == selectedPosition) {
+            holder.view.setVisibility(View.VISIBLE);
+            holder.tvName.setBackgroundResource(R.color.color_107);
+            holder.tvName.setTextColor(context.getResources().getColor(R.color.color_002));
+        } else {
+            holder.view.setVisibility(View.GONE);
+            holder.tvName.setBackgroundResource(R.color.color_109);
+            holder.tvName.setTextColor(context.getResources().getColor(R.color.color_100));
+        }
+    }
+
     /**
      * 获取被选中的位置，将选中项移动到中间，并刷新
      * @param selectedPosition
@@ -45,34 +67,13 @@ public class LeftRecyclerAdapter extends RecyclerView.Adapter<LeftRecyclerAdapte
     public void setItemClickListener(LeftListener listener) {
         this.listener = listener;
     }
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //填充Item中的布局
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_search_sort_left, parent, false);
-        // 实例化viewholder
-        ViewHolder viewHolder = new ViewHolder(view,listener);
-        return viewHolder;
-    }
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        // 绑定数据
-        holder.tvName.setText(bigSortList.get(position));
-        //item点击后背景的变化
-        if (position == selectedPosition) {
-            holder.tvName.setBackgroundResource(R.color.color_107);
-            holder.view.setVisibility(View.VISIBLE);
-            holder.tvName.setTextColor(context.getResources().getColor(R.color.color_002));
-        } else {
-            holder.view.setVisibility(View.GONE);
-            holder.tvName.setBackgroundResource(R.color.color_109);
-            holder.tvName.setTextColor(context.getResources().getColor(R.color.color_100));
-        }
-    }
+
+
     /**
      * 将选中项移动到中间位置的方法
      * @param position
      */
-    public void moveToMiddle(int position) {
+    private void moveToMiddle(int position) {
         //先从RecyclerView的LayoutManager中获取当前第一项和最后一项的Position
         int firstItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
         int lastItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
@@ -93,16 +94,20 @@ public class LeftRecyclerAdapter extends RecyclerView.Adapter<LeftRecyclerAdapte
             }
         }
     }
+
+
     @Override
     public int getItemCount() {
         return bigSortList.size();
     }
+
     public  static class ViewHolder extends RecyclerView.ViewHolder {
         /**
          * tvName显示大类名称，view是显示被选中的黄色标记
          */
         private TextView tvName;
         private View view;
+
         public ViewHolder(View itemView, final LeftListener listener) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tv_left);
@@ -116,6 +121,7 @@ public class LeftRecyclerAdapter extends RecyclerView.Adapter<LeftRecyclerAdapte
             });
         }
     }
+
     /**
      * RecyclerView没有内置监听器，自定义item点击事件
      */
@@ -123,7 +129,5 @@ public class LeftRecyclerAdapter extends RecyclerView.Adapter<LeftRecyclerAdapte
 
         void onItemClick(int position);
     }
-
-
 }
 

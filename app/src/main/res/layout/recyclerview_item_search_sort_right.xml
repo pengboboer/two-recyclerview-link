@@ -29,12 +29,10 @@
         android:textSize="12sp"/>
     </RelativeLayout>
 
-    <com.example.tworecyclerview.MyGridView
-        android:id="@+id/gridView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_whole"
-        android:background="@color/color_109"
-        android:numColumns="3">
-    </com.example.tworecyclerview.MyGridView>
+        android:background="@color/color_109" />
 </RelativeLayout>

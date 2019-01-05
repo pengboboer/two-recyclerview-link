@@ -33,6 +33,23 @@ public class RightRecyclerAdapter extends RecyclerView.Adapter<RightRecyclerAdap
         this.smallSortList= smallSortList;
         this.recyclerView = recyclerView;
     }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //填充Item中的布局
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_search_sort_right, parent, false);
+        // 实例化viewholder
+        ViewHolder viewHolder = new ViewHolder(view,listener);
+        return viewHolder;
+    }
+    @Override
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        // 绑定数据
+        holder.tvTitle.setText(bigSortList.get(position));
+        // 获取position位置大分类中小分类的集合
+
+    }
+
     /**
      * 获取被选中的位置，将选中项移动到顶部，并刷新
      * @param selectedPosition
@@ -51,34 +68,13 @@ public class RightRecyclerAdapter extends RecyclerView.Adapter<RightRecyclerAdap
     public void setItemClickListener(RightListener listener) {
         this.listener = listener;
     }
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //填充Item中的布局
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_search_sort_right, parent, false);
-        // 实例化viewholder
-        ViewHolder viewHolder = new ViewHolder(view,listener);
-        return viewHolder;
-    }
-    @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        // 绑定数据
-        holder.tvTitle.setText(bigSortList.get(position));
-        // 获取position位置大分类中小分类的集合
-        // 小分类的数据用GridView展示
-        GridViewAdapter adapter = new GridViewAdapter(context, smallSortList);
-        holder.gridView.setAdapter(adapter);
-        // gridView中的Item的点击事件
-        holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(context,smallSortList.get(i), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+
+
     @Override
     public int getItemCount() {
         return bigSortList.size();
     }
+
 
     public  static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
@@ -94,7 +90,6 @@ public class RightRecyclerAdapter extends RecyclerView.Adapter<RightRecyclerAdap
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             tvTitleHole = (TextView) itemView.findViewById(R.id.tv_title_whole);
             rlWhole = (RelativeLayout) itemView.findViewById(R.id.rl_whole);
-            gridView = (MyGridView) itemView.findViewById(R.id.gridView);
             rlWhole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
