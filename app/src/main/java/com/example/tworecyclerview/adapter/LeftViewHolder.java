@@ -1,11 +1,13 @@
-package com.example.tworecyclerview;
+package com.example.tworecyclerview.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.tworecyclerview.R;
 import com.example.tworecyclerview.base.SimpleRecyclerAdapter;
 import com.example.tworecyclerview.base.SimpleViewHolder;
+import com.example.tworecyclerview.bean.SortBean;
 
 /**
  * @author pengbo
@@ -19,20 +21,17 @@ public class LeftViewHolder extends SimpleViewHolder<SortBean> {
     private TextView tvName;
     private View view;
 
-    private int mSelectedPosition;
-
-    public LeftViewHolder(View itemView, @Nullable SimpleRecyclerAdapter<SortBean> adapter, int position) {
+    public LeftViewHolder(View itemView, @Nullable SimpleRecyclerAdapter<SortBean> adapter) {
         super(itemView, adapter);
         tvName = (TextView) itemView.findViewById(R.id.tv_left);
         view = itemView.findViewById(R.id.view);
-        mSelectedPosition = position;
     }
 
     @Override
     protected void refreshView(SortBean data) {
         tvName.setText(data.bigSortName);
         //item点击后背景的变化
-        if (getAdapterPosition() == mSelectedPosition) {
+        if (data.isSelected) {
             view.setVisibility(View.VISIBLE);
             tvName.setBackgroundResource(R.color.color_107);
             tvName.setTextColor(getContext().getResources().getColor(R.color.color_002));

@@ -4,35 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_107"
-    android:id="@+id/root">
-    <RelativeLayout
-        android:id="@+id/rl_whole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    android:id="@+id/rl_whole">
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerVertical="true"
         android:text="大类"
         android:textSize="16sp"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/color_100"
-        android:layout_marginBottom="8dp" />
+        android:textColor="@color/color_100" />
     <TextView
         android:id="@+id/tv_title_whole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="全部 >"
+        android:layout_marginRight="12dp"
+        android:text="查看全部 >"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:textColor="@color/color_001"
         android:textSize="12sp"/>
-    </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_whole"
-        android:background="@color/color_109" />
 </RelativeLayout>
