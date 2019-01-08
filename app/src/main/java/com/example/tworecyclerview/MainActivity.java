@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 MyUtils.moveToMiddle(leftRecyclerView, index);
                 // 右侧滑到对应位置
                 ((GridLayoutManager)rightRecyclerView.getLayoutManager())
-                        .scrollToPositionWithOffset(index,0);
+                        .scrollToPositionWithOffset(indexMap.get(index),0);
             }
         });
 
@@ -133,6 +133,12 @@ public class MainActivity extends AppCompatActivity {
                 smallItem.id = mLeftList.get(i).list.get(j).smallSortId;
                 smallItem.name = mLeftList.get(i).list.get(j).smallSortName;
                 mRightList.add(smallItem);
+            }
+        }
+
+        for (int i = 0; i < mRightList.size(); i++) {
+            if (mRightList.get(i).position != -1) {
+                indexMap.put(mRightList.get(i).position, i);
             }
         }
 
