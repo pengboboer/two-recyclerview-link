@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.tworecyclerview.adapter.LeftAdapter;
 import com.example.tworecyclerview.adapter.RightAdapter;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         leftRecyclerView = (RecyclerView) findViewById(R.id.rv_sort_left) ;
         rightRecyclerView = (RecyclerView) findViewById(R.id.rv_sort_right);
-
+        // 左列表
         leftRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         ((SimpleItemAnimator) leftRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         leftAdapter = new LeftAdapter();
@@ -63,9 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         .scrollToPositionWithOffset(indexMap.get(index),0);
             }
         });
-
-
-
+        // 右列表
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup(){
             @Override
@@ -77,26 +76,28 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
         rightRecyclerView.setLayoutManager(gridLayoutManager);
         rightAdapter = new RightAdapter();
         rightAdapter.setListData(mRightList);
         rightRecyclerView.setAdapter(rightAdapter);
+        rightAdapter.setOnItemClickListener(new SimpleRecyclerAdapter.OnItemClickListener<SortItem>() {
+            @Override
+            public void onItemClick(SortItem item, int index) {
+                Toast.makeText(MainActivity.this, item.name, Toast.LENGTH_SHORT).show();
+            }
+        });
         //右侧列表的滚动事件
         rightRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 //获取右侧列表的第一个可见Item的position
                 int topPosition = ((GridLayoutManager) rightRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                // 如果此项对应的是左边的大类的index
                 if (mRightList.get(topPosition).position != -1) {
                     MyUtils.moveToMiddle(leftRecyclerView, mRightList.get(topPosition).position);
                     leftAdapter.setSelectedPosition(mRightList.get(topPosition).position);
                 }
-                Log.e("222", "onScrolled: " + topPosition);
-                // 刷新左侧
-//                leftAdapter.setSelectedPosition(topPosition);
-//                MyUtils.moveToMiddle(leftRecyclerView, topPosition);
-                //leftAdapter.notifyDataSetChanged();
+
             }
         });
     }
@@ -143,4 +144,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 }

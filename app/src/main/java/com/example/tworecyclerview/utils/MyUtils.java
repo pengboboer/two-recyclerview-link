@@ -17,7 +17,7 @@ public class MyUtils {
         int middle = (firstItem + lastItem)/2;
         // 取绝对值，index下标是当前的位置和中间位置的差，下标为index的view的top就是需要滑动的距离
         int index = (position - middle) >= 0 ? position - middle : -(position - middle);
-        //左侧列表一共有12个Item，如果>这个值会返回null，程序崩溃，如果>12直接滑到指定位置,或者getChildCount,都一样啦
+        //左侧列表一共有getChildCount个Item，如果>这个值会返回null，程序崩溃，如果>getChildCount直接滑到指定位置,或者,都一样啦
         if (index >= recyclerView.getChildCount()) {
             recyclerView.scrollToPosition(position);
         } else {
