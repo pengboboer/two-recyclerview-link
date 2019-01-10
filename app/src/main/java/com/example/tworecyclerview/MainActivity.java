@@ -120,12 +120,13 @@ public class MainActivity extends AppCompatActivity {
             bean.list = list;
             mLeftList.add(bean);
         }
-
+        // 右侧的list是将每一个大类和小类按次序添加，并且标记大类的位置
         for (int i = 0; i < mLeftList.size(); i++) {
             SortItem bigItem = new SortItem();
             bigItem.viewType = ItemType.BIG_SORT;
             bigItem.id = mLeftList.get(i).bigSortId;
             bigItem.name = mLeftList.get(i).bigSortName;
+            // 标记大类的位置，所有项的position默认是-1，如果是大类就添加position，让他和左侧位置对应
             bigItem.position = i;
             mRightList.add(bigItem);
             for (int j = 0; j < mLeftList.get(i).list.size(); j++) {
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 mRightList.add(smallItem);
             }
         }
-
+        // 点击左侧需要知道对应右侧的位置，用map先保存起来
         for (int i = 0; i < mRightList.size(); i++) {
             if (mRightList.get(i).position != -1) {
                 indexMap.put(mRightList.get(i).position, i);
