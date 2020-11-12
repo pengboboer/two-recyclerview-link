@@ -33,6 +33,14 @@ public class Repository {
         }
     }
 
+    private void buildIndexMap() {
+        for (int i = 0; i < rightList.size(); i++) {
+            if (rightList.get(i).position != -1) {
+                indexMap.put(rightList.get(i).position, i);
+            }
+        }
+    }
+
     private List<SortItem> getRightItemList(int index) {
         List<SortItem> list = new ArrayList<>();
         SortItem bigSortItem = new SortItem(ItemType.BIG_SORT, index, "大标签" + index, index);
@@ -44,13 +52,7 @@ public class Repository {
         return list;
     }
 
-    private void buildIndexMap() {
-        for (int i = 0; i < rightList.size(); i++) {
-            if (rightList.get(i).position != -1) {
-                indexMap.put(rightList.get(i).position, i);
-            }
-        }
-    }
+
 
 
     public List<SortBean> getLeftList() {
