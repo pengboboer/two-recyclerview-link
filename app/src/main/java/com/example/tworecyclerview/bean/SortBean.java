@@ -9,13 +9,12 @@ import java.util.List;
 public class SortBean {
     public int bigSortId;
     public String bigSortName;
-
-    public List<ListBean> list;
-
-    public static class ListBean {
-        public int smallSortId;
-        public String smallSortName;
-    }
-
+    public List<SortItem> list;
     public boolean isSelected;
+
+    public SortBean(int bigSortId, String bigSortName, List<SortItem> list) {
+        this.bigSortId = bigSortId;
+        this.bigSortName = bigSortName;
+        this.list = list;
+    }
 }

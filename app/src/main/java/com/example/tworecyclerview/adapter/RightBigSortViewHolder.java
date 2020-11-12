@@ -1,10 +1,10 @@
 package com.example.tworecyclerview.adapter;
 
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.example.tworecyclerview.R;
 import com.example.tworecyclerview.base.SimpleRecyclerAdapter;
@@ -17,7 +17,7 @@ import com.example.tworecyclerview.bean.SortItem;
  */
 public class RightBigSortViewHolder extends SimpleViewHolder<SortItem> {
 
-    TextView tvTitle;
+    private final TextView tvTitle;
 
     public RightBigSortViewHolder(View itemView, @Nullable SimpleRecyclerAdapter<SortItem> adapter) {
         super(itemView, adapter);

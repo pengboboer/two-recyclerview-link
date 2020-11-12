@@ -15,7 +15,6 @@ import com.example.tworecyclerview.contants.ItemType;
  */
 public class RightAdapter extends SimpleRecyclerAdapter<SortItem> {
 
-
     @Override
     public SimpleViewHolder<SortItem> onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ItemType.BIG_SORT) {

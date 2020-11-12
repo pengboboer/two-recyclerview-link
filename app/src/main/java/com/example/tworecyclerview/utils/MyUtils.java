@@ -1,7 +1,15 @@
 package com.example.tworecyclerview.utils;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
+import android.util.Log;
+import android.view.Display;
+import android.view.Window;
+import android.view.WindowManager;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author pengbo
@@ -14,7 +22,7 @@ public class MyUtils {
         int firstItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
         int lastItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
         //中间位置
-        int middle = (firstItem + lastItem)/2;
+        int middle = (firstItem + lastItem) / 2;
         // 取绝对值，index下标是当前的位置和中间位置的差，下标为index的view的top就是需要滑动的距离
         int index = (position - middle) >= 0 ? position - middle : -(position - middle);
         //左侧列表一共有getChildCount个Item，如果>这个值会返回null，程序崩溃，如果>getChildCount直接滑到指定位置,或者,都一样啦
@@ -29,5 +37,21 @@ public class MyUtils {
                 recyclerView.scrollBy(0, recyclerView.getChildAt(index).getTop());
             }
         }
+    }
+
+    public static void setRefreshRate(Activity context) {
+        WindowManager wm =(WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        Display.Mode[] modes = wm.getDefaultDisplay().getSupportedModes();
+        if (modes == null || modes.length == 0) return;
+        Display.Mode highestMode = modes[0];
+        for (Display.Mode mode : modes) {
+            if (mode.getRefreshRate() > highestMode.getRefreshRate()) {
+                highestMode = mode;
+            }
+            Log.e("刷新率", mode.getRefreshRate() + "");
+        }
+        Window window = context.getWindow();
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.preferredDisplayModeId = highestMode.getModeId();
     }
 }

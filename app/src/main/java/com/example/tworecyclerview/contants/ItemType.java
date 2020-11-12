@@ -1,6 +1,7 @@
 package com.example.tworecyclerview.contants;
 
-import android.support.annotation.IntDef;
+
+import androidx.annotation.IntDef;
 
 /**
  * @author pengbo
