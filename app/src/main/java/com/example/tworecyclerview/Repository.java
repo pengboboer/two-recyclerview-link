@@ -21,11 +21,11 @@ public class Repository {
     private final Map<Integer, Integer> indexMap = new HashMap<>();
 
     public Repository() {
-        buildLeftList();
+        buildList();
         buildIndexMap();
     }
 
-    private void buildLeftList() {
+    private void buildList() {
         for (int i = 0; i < 30; i++) {
             SortBean bean = new SortBean(i, "大分类" + i, getRightItemList(i));
             leftList.add(bean);
