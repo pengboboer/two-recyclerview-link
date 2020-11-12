@@ -51,12 +51,7 @@ public class MainActivity extends AppCompatActivity {
         leftAdapter.setOnItemClickListener(new SimpleRecyclerAdapter.OnItemClickListener<SortBean>() {
             @Override
             public void onItemClick(SortBean item, int index) {
-                // 左侧选中并滑到中间位置
-                leftAdapter.setSelectedPosition(index);
-                MyUtils.moveToMiddle(leftRecyclerView, index);
-                // 右侧滑到对应位置
-                ((GridLayoutManager)rightRecyclerView.getLayoutManager())
-                        .scrollToPositionWithOffset(repository.getIndexMap().get(index),0);
+                onClickLeftItem(index);
             }
         });
     }
@@ -66,11 +61,7 @@ public class MainActivity extends AppCompatActivity {
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup(){
             @Override
             public int getSpanSize(int position) {
-                if (repository.getRightList().get(position).viewType == ItemType.BIG_SORT) {
-                    return 3;
-                } else {
-                    return 1;
-                }
+                return repository.getRightList().get(position).viewType == ItemType.BIG_SORT ? 3 : 1;
             }
         });
         rightRecyclerView.setLayoutManager(gridLayoutManager);
@@ -86,16 +77,29 @@ public class MainActivity extends AppCompatActivity {
         rightRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                //获取右侧列表的第一个可见Item的position
-                int topPosition = ((GridLayoutManager) rightRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                // 如果此项对应的是左边的大类的index
-                int currentPosition = repository.getRightList().get(topPosition).position;
-                if (currentPosition != -1) {
-                    MyUtils.moveToMiddle(leftRecyclerView, currentPosition);
-                    leftAdapter.setSelectedPosition(currentPosition);
-                }
+                onScrollRightListScrolled();
             }
         });
+    }
+
+    private void onClickLeftItem(int index) {
+        // 左侧选中并滑到中间位置
+        leftAdapter.setSelectedPosition(index);
+        MyUtils.moveToMiddle(leftRecyclerView, index);
+        // 右侧到对应位置
+        ((GridLayoutManager)rightRecyclerView.getLayoutManager())
+                .scrollToPositionWithOffset(repository.getIndexMap().get(index),0);
+    }
+
+    private void onScrollRightListScrolled() {
+        //获取右侧列表的第一个可见Item的position
+        int topPosition = ((GridLayoutManager) rightRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+        // 如果此项对应的是左边的大类的index
+        int currentPosition = repository.getRightList().get(topPosition).position;
+        if (currentPosition != -1) {
+            MyUtils.moveToMiddle(leftRecyclerView, currentPosition);
+            leftAdapter.setSelectedPosition(currentPosition);
+        }
     }
 
 }
