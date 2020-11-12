@@ -53,8 +53,6 @@ public class Repository {
     }
 
 
-
-
     public List<SortBean> getLeftList() {
         return leftList;
     }
