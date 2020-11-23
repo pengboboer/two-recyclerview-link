@@ -38,20 +38,4 @@ public class MyUtils {
             }
         }
     }
-
-    public static void setRefreshRate(Activity context) {
-        WindowManager wm =(WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        Display.Mode[] modes = wm.getDefaultDisplay().getSupportedModes();
-        if (modes == null || modes.length == 0) return;
-        Display.Mode highestMode = modes[0];
-        for (Display.Mode mode : modes) {
-            if (mode.getRefreshRate() > highestMode.getRefreshRate()) {
-                highestMode = mode;
-            }
-            Log.e("刷新率", mode.getRefreshRate() + "");
-        }
-        Window window = context.getWindow();
-        WindowManager.LayoutParams params = window.getAttributes();
-        params.preferredDisplayModeId = highestMode.getModeId();
-    }
 }
